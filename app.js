@@ -1,5 +1,6 @@
 const express = require( 'express' );
 const morgan = require('morgan');
+const nunjucks = require('nunjucks');
 const app = express();
 
 // app.use('*', function(req, res, next) {
@@ -13,11 +14,17 @@ const app = express();
 // });
 
 app.use(morgan('combined'));
+app.engine('html', nunjucks.render);
+app.set('view engine', 'html');
 
 app.get('/', function(req, res, next) {
-  res.send('Welcome to our cool app!');
+  const people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+  res.render( 'index', {title: 'Hall of Fame', people: people} );
 });
 
 app.listen(3000, function() {
   console.log('server listening');
 });
+
+
+nunjucks.configure('views', {noCache: true});
