@@ -41,6 +41,12 @@ code {
   font-size: 80%;
 }
 
+.tweets {
+  list-style-type: none;
+  padding: 10px 0px;
+  color: #42A4E3;
+}
+
 .tweetbox {
   padding: 7px;
 }
@@ -56,4 +62,9 @@ code {
 }
 .content .by {
   font-weight: bold;
+}
+
+.profile-img {
+  float: left;
+  margin-right: 10px;
 }
