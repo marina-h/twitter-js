@@ -27,34 +27,18 @@
       {% endif %}
 
       <!-- display tweets here -->
+      <div id="timeline">
       {% for tweet in tweets %}
-        <li class="tweets">
+        <li class="tweets" id="testing">
           <img class="profile-img" src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg">
             <a href="/users/{{tweet.name}}"><strong>{{tweet.name}}</strong></a>
           <br>
             <a href="/tweets/{{tweet.id}}">{{tweet.content}}</a>
         </li>
       {% endfor %}
-
+      </div>
     </div>
   </div>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    // Load the socket.io library above, then connect to the server.
-    // Because the socket.io server is being run on the same server as your
-    // Express instance, you can connect() without any arguments.
-    var socket = io.connect();
-    socket.on('connect', function(){
-      console.log('connected to server via WebSockets!');
-    });
-    // When 'new_tweet' events are fired, do something with the packaged tweet
-    socket.on('newTweet', function (tweet) {
-      console.log(tweet);
-      alert('Refreshing... check the console...');
-      // some logic to add the new tweet to the DOM…
-    });
-  </script>
 
 {% endblock %}
 Raw

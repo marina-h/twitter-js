@@ -30,12 +30,11 @@ module.exports = function(io) {
     var name = req.body.name;
     var text = req.body.text;
     tweetBank.add(name, text);
+    var newTweet = tweetBank.find({name: name, text:text});
+    var id = newTweet.id;
     res.redirect('/');
+    io.sockets.emit('newTweet', {name: name, text: text, id: id});
   });
-
-  // io.sockets.emit('newTweet', {
-
-  // });
 
   router.use(express.static('public'));
 

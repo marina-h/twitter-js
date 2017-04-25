@@ -17,9 +17,8 @@ const routes = require('./routes');
 // });
 
 app.use(morgan('combined'));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use('/', routes(io));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 
@@ -36,6 +35,18 @@ app.set('view engine', 'html');
 var server = app.listen(3000, function() {
   console.log('server listening');
 });
+
 var io = socketio.listen(server);
 
 nunjucks.configure('views', {noCache: true});
+
+app.use('/', routes(io));
+
+// io.on('connection', function (socket) {
+//   console.log('connected to sockets from server side!')
+//   socket.emit('connect');
+//   socket.on('newTweet', function (data) {
+//     console.log(data);
+//   });
+// });
+
