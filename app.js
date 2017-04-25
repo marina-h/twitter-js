@@ -1,6 +1,8 @@
 const express = require( 'express' );
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
+const bodyParser = require('body-parser');
+const socketio = require('socket.io');
 const app = express();
 const routes = require('./routes');
 
@@ -15,7 +17,9 @@ const routes = require('./routes');
 // });
 
 app.use(morgan('combined'));
-app.use('/', routes);
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use('/', routes(io));
 app.engine('html', nunjucks.render);
 app.set('view engine', 'html');
 
@@ -24,9 +28,14 @@ app.set('view engine', 'html');
 //   res.render( 'index', {title: 'Hall of Fame', people: people} );
 // });
 
-app.listen(3000, function() {
+// app.listen(3000, function() {
+//   console.log('server listening');
+// });
+
+
+var server = app.listen(3000, function() {
   console.log('server listening');
 });
-
+var io = socketio.listen(server);
 
 nunjucks.configure('views', {noCache: true});

@@ -40,5 +40,5 @@ for (let i = 0; i < 10; i++) {
 
 // data.push({ name: 'Test Name', content: 'Test tweet', id: '111' })
 
-console.log(data);
+// console.log(data);
 // console.log(find({id: '111'}))
